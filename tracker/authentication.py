@@ -7,17 +7,17 @@ from django.conf import settings
 
 """set up firebase admin credentials"""
 cred = credentials.Certificate({
-    'type': settings.FIREBASE_ACCOUNT_TYPE,
-    'project_id': settings.FIREBASE_PROJECT_ID,
-    'private_key_id': settings.FIREBASE_PRIVATE_KEY_ID,
-    'private_key': settings.FIREBASE_PRIVATE_KEY.replace('\\n', '\n'),
-    'client_email': settings.FIREBASE_CLIENT_EMAIL,
-    'client_id': settings.FIREBASE_CLIENT_ID,
-    'auth_uri': settings.FIREBASE_AUTH_URI,
-    'token_uri': settings.FIREBASE_TOKEN_URI,
-    'auth_provider_x509_cert_url': settings.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
-    'client_x509_cert_url': settings.FIREBASE_CLIENT_X509_CERT_URL,
-    'universe_domain': settings.FIREBASE_UNIVERSE_DOMAIN,
+    "type": settings.FIREBASE_ACCOUNT_TYPE,
+    "project_id": settings.FIREBASE_PROJECT_ID,
+    "private_key_id": settings.FIREBASE_PRIVATE_KEY_ID,
+    "private_key": settings.FIREBASE_PRIVATE_KEY.replace('\\n', '\n'),
+    "client_email": settings.FIREBASE_CLIENT_EMAIL,
+    "client_id": settings.FIREBASE_CLIENT_ID,
+    "auth_uri": settings.FIREBASE_AUTH_URI,
+    "token_uri": settings.FIREBASE_TOKEN_URI,
+    "auth_provider_x509_cert_url": settings.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+    "client_x509_cert_url": settings.FIREBASE_CLIENT_X509_CERT_URL,
+    "universe_domain": settings.FIREBASE_UNIVERSE_DOMAIN,
 })
 
 default_app = firebase_admin.initialize_app(cred)
@@ -26,10 +26,10 @@ default_app = firebase_admin.initialize_app(cred)
 class FirebaseAuthentication(BaseAuthentication):
     """Firebase Authentication"""
     def authenticate(self, request):
-        auth_header = request.META.get('HTTP_AUTHORIZATION')
+        auth_header = request.META.get("HTTP_AUTHORIZATION")
         if not auth_header:
             raise exceptions.AuthenticationFailed("No auth header provided")
-        id_token = auth_header.split(' ')[1]
+        id_token = auth_header.split(" ")[1]
         decoded_token = None
         try:
             decoded_token = auth.verify_id_token(id_token)
@@ -40,7 +40,7 @@ class FirebaseAuthentication(BaseAuthentication):
             return None
         
         try:
-            uid = decoded_token.get('uid')
+            uid = decoded_token.get("uid")
         except Exception:
             raise exceptions.FirebaseError()
 

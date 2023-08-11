@@ -5,7 +5,7 @@ class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -56,3 +56,9 @@ class Order(models.Model):
 
     def __str__(self):
         return self.address + " " + self.city
+
+    class Meta:
+        verbose_name_plural = "orders"
+        verbose_name = "order"
+        ordering = ['-created_at']
+
