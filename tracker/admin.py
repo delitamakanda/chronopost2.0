@@ -6,13 +6,13 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'email', 'phone')
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at')
+    list_display = ('id', 'created_at', 'customer', 'carrier')
     search_fields = ('created_at', 'address', 'city','state', 'zip_code',)
     list_filter = ('created_at',)
 
 
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('id',)
+    list_display = ('id', 'price', 'quantity',)
 
 
 admin.site.register(Customer, CustomerAdmin)

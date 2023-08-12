@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hwy!mrm5=o)z)+sd98$iz-+wl^$+uz&#$kr9kuw&-5k!8qfzpa'
+SECRET_KEY = os.getenv("SECRET_KEY", "secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", True)
 
 ALLOWED_HOSTS = []
 
@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'tracker.apps.TrackerConfig',
+    'graphene_django',
     'rest_framework',
+    'corsheaders',
+    'django_filters',
+    'tracker.apps.TrackerConfig',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'chronopost.urls'
@@ -163,3 +166,40 @@ REST_FRAMEWORK = {
        'rest_framework.renderers.BrowsableAPIRenderer',
     ),
 }
+
+
+"""GRAPHQL CONFIGURATION"""
+
+GRAPHENE = {
+    'SCHEMA': 'tracker.schema.schema',
+    'SCHEMA_INDENT': 4,
+    'MIDDLEWARE_CLASSES': [
+        'graphene_django_extras.ExtraGraphQLDirectiveMiddleware',
+    ],
+}
+
+GRAPHENE_DJANGO_EXTRAS = {
+    'DEFAULT_PAGINATION_CLASS': 'graphene_django_extras.paginations.LimitOffsetGraphqlPagination',
+    'DEFAULT_PAGE_SIZE': 20,
+    'MAX_PAGE_SIZE': 50,
+    'CACHE_ACTIVE': True,
+    'CACHE_TIMEOUT': 300
+}
+
+
+"""Cors Headers"""
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://localhost:8080',
+    'http://localhost:4200',
+    'http://localhost:4201',
+)
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
