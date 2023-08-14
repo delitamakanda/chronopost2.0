@@ -5,6 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { TabProvider } from 'store/tabs';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+    uri: 'http://localhost:8000/api/graphiql',
+    cache: new InMemoryCache(),
+});
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +20,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <TabProvider>
-        <App />
+        <ApolloProvider client={client}>
+          <App />
+        </ApolloProvider>
       </TabProvider>
     </BrowserRouter>
   </React.StrictMode>

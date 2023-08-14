@@ -15,7 +15,7 @@ const Tabbar = () => {
     return (
         <div id="tabs" className='flex justify-between'>
             <>
-            {tabs.map((tab: { path: string; title: string, icon: string}, idx: number) => (<div key={idx} onClick={() => navigate( tab.path )} className={`cursor-pointer w-full justify-center inline-block text-center pt-2 pb-1 text-gray-500 ${tab.path === '/orders' && focused(tab.path) ? 'text-pink-500': ''} ${tab.path === '/customers' && focused(tab.path) ? 'text-blue-500': ''}`}>
+            {tabs.map((tab: { path: string; title: string, icon: string}, idx: number) => (<div key={idx} onClick={() => navigate( tab.path )} className={`cursor-pointer w-full justify-center inline-block text-center pt-2 pb-1  ${tab.path === '/orders' && focused(tab.path) ? 'text-pink-500': ''} ${tab.path === '/customers' && focused(tab.path) ? 'text-blue-500': ''}`}>
                 <span className="inline-block mb-1">
                     {tab.icon === 'orders' ? <ShoppingBag color={focused(tab.path) ? '#EC4899': '#6B7280'} /> : <UserCircle color={focused(tab.path) ? '#3B82F6': '#6B7280'} />}
                 </span>
