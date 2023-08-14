@@ -1,21 +1,27 @@
 import Tabbar from 'components/ui/Tabbar';
 import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import CustomersScreen from 'screens/customers';
 import OrdersScreen from 'screens/orders';
+import Header from 'components/ui/Header';
 
-function App() {
+const App = () => {
+  const location = useLocation();
   return (
-    <div className="App">
-      <main>
-      {/* TODO: add content */}
-      <Routes>
-        <Route path="/" element={<Navigate to="/orders" />} />
-        <Route path="/orders" element={<OrdersScreen />} />
-        <Route path="/customers" element={<CustomersScreen />} />
-      </Routes>
-      </main>
-      <Tabbar />
+    <div className="w-full h-screen">
+        <div id="top-navigation" className="block fixed inset-x-0 top-0 z-10 bg-white shadow">
+          <Header headerShown={false} title={location.pathname.split('/')[1]} />
+        </div>
+        <main>
+          <Routes>
+            <Route path="/" element={<Navigate to="/orders" replace={true} />} />
+            <Route path="/orders" element={<OrdersScreen />} />
+            <Route path="/customers" element={<CustomersScreen />} />
+          </Routes>
+        </main>
+        <section id="bottom-navigation" className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
+          <Tabbar />
+        </section>
     </div>
   );
 }
