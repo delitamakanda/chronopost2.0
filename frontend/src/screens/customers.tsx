@@ -3,6 +3,7 @@ import Image from '../assets/images/customers.jpeg';
 import { useQuery } from '@apollo/client';
 import { GET_CUSTOMERS } from 'graphql/queries';
 import CustomerCard from 'components/ui/CustomerCard';
+import { Outlet } from 'react-router-dom';
 
 const CustomersScreen = () => {
     const [input, setInput] = useState<string>('');
@@ -22,6 +23,7 @@ const CustomersScreen = () => {
                 ))
                 }
             </div>
+            <Outlet />
         </div>
     )
 }

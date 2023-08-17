@@ -4,6 +4,8 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import CustomersScreen from 'screens/customers';
 import OrdersScreen from 'screens/orders';
 import Header from 'components/ui/Header';
+import Modal from 'components/modal/Modal';
+import Customer from 'screens/modals/customer';
 
 const App = () => {
   const location = useLocation();
@@ -16,7 +18,13 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/orders" replace={true} />} />
             <Route path="/orders" element={<OrdersScreen />} />
-            <Route path="/customers" element={<CustomersScreen />} />
+            <Route path="/customers" element={<CustomersScreen />} children={
+              <>
+                <Route path="/customers/:id" element={<Modal>
+                  <Customer />
+                </Modal>} />
+              </>
+            } />
           </Routes>
         </main>
         <section id="bottom-navigation" className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
