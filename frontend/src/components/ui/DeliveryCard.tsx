@@ -1,10 +1,20 @@
 import Inbox from "components/icons/inbox";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import Map from "components/utils/Map";
+import Marker from "components/utils/Marker";
+
+const render = (status: Status) => {
+    return <h1>{status}</h1>;
+};
 
 type Props = {
     order: any;
 };
 
 const DeliveryCard = ({ order }: Props) => {
+    const center = {lat: order.lat, lng: order.lng};
+    const zoom = 4;
+    const position = {lat: order.lat, lng: order.lng};
     return (
         <div className="rounded-lg my-2 shadow" style={{backgroundColor:'#59C1CC'}}>
             <div className="flex flex-col items-center">
@@ -19,7 +29,7 @@ const DeliveryCard = ({ order }: Props) => {
                     <p className=" text-center text-white text-sm">{order.address}, {order.city}</p>
                     <p className=" text-center text-white text-sm italic">Shipping Cost: {order.shippingCost}€</p>
                 </div>
-                <hr />
+                <hr style={{ borderColor: "white"}} />
                 <div className="p-5 w-full">
                 {order.trackingItems.map((item: any, index: number) => (
                     <div className="flex flex-row justify-between items-center" key={index}>
@@ -28,6 +38,11 @@ const DeliveryCard = ({ order }: Props) => {
                     </div>
                 ))}
                 </div>
+                <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API as string} render={render}>
+                    <Map zoom={zoom} center={center}>
+                        <Marker position={position} />
+                    </Map>
+                </Wrapper>
             </div>
         </div>
     )

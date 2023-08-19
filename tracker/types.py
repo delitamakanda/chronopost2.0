@@ -41,10 +41,10 @@ class OrderType(DjangoObjectType):
 class CustomerListType(DjangoListObjectType):
     class Meta:
         model = Customer
-        pagination = LimitOffsetGraphqlPagination(default_limit=25, ordering='-created_at')
+        pagination = LimitOffsetGraphqlPagination(default_limit=20, ordering='-created_at')
         
 class OrderListType(DjangoListObjectType):
     class Meta:
         model = Order
-        pagination = LimitOffsetGraphqlPagination(default_limit=25, ordering='-created_at')
+        pagination = LimitOffsetGraphqlPagination(default_limit=20, ordering='-created_at')
         

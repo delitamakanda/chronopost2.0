@@ -3,7 +3,7 @@ import { GET_CUSTOMER_ORDERS } from "graphql/queries";
 import { useState, useEffect } from "react";
 
 const useCustomerOrders = (customerId: string) => {
-    const { loading, error, data } = useQuery(GET_CUSTOMER_ORDERS(customerId));
+    const { loading, error, data } = useQuery(GET_CUSTOMER_ORDERS, { variables: { customerId } });
     const [orders, setOrders] = useState<any>([]);
 
     useEffect(() => {

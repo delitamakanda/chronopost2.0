@@ -1,23 +1,24 @@
 import { gql } from "@apollo/client";
 
 export const GET_CUSTOMERS = gql`
-query MyQuery {
-    listCustomers {
-      results {
-        createdAt
-        email
-        firstName
-        id
-        lastName
-        phone
-      }
+query MyQuery($offset: Int!) {
+  listCustomers {
+    results(offset: $offset) {
+      createdAt
+      email
+      firstName
+      id
+      lastName
+      phone
     }
+    totalCount
   }
+}
 `
 
-export const GET_CUSTOMER_ORDERS = (customerId: string) => gql`
-query MyQuery {
-    allOrdersByCustomer(customerId: "${customerId}") {
+export const GET_CUSTOMER_ORDERS = gql`
+query MyQuery($customerId: String!) {
+    allOrdersByCustomer(customerId: $customerId) {
       id
       address
       carrier

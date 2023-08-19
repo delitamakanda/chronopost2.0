@@ -8,8 +8,14 @@ import { TabProvider } from 'store/tabs';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-    uri: 'http://localhost:8000/api/graphiql',
-    cache: new InMemoryCache(),
+    uri: process.env.REACT_APP_PUBLIC_URL + '/api/graphiql',
+    cache: new InMemoryCache({
+      typePolicies: {
+        CustomerListType: {
+          merge: true
+        }
+      }
+    }),
 });
 
 

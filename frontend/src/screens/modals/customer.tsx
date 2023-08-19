@@ -13,8 +13,8 @@ const Customer = () => {
                 <p className="text-center text-sm text-gray-800 italic">deliveries</p>
             </div>
             <>
-                {orders && orders.map((order: any) => (
-                    <DeliveryCard order={order} />
+                {orders && orders.map((order: any, i: number) => (
+                    <DeliveryCard key={i} order={order} />
                 ))}
             </>
           

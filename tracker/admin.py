@@ -3,7 +3,7 @@ from tracker.models import Customer, Order, OrderItem
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'email', 'phone')
-    search_fields = ('first_name', 'email', 'phone')
+    search_fields = ('first_name', 'last_name', 'email', 'phone')
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'created_at', 'customer', 'carrier')
