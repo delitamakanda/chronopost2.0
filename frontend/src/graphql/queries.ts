@@ -40,9 +40,9 @@ query MyQuery($customerId: String!) {
 `
 
 export const GET_ORDERS = gql`
-query MyQuery {
+query MyQuery($offset: Int!) {
     allOrders {
-      results {
+      results(offset: $offset) {
         address
         carrier
         city
@@ -55,6 +55,8 @@ query MyQuery {
         customer {
           id
           firstName
+          lastName
+          email
         }
         trackingItems {
           id

@@ -3,8 +3,8 @@ import { GET_ORDERS } from "graphql/queries";
 import { useState, useEffect } from "react";
 
 const useOrders = () => {
-    const { loading, error, data } = useQuery(GET_ORDERS);
-    const [orders, setOrders] = useState<unknown>([]);
+    const { loading, error, data } = useQuery(GET_ORDERS, { variables: { offset: 0}});
+    const [orders, setOrders] = useState<any>([]);
 
     useEffect(() => {
         if (!data) {
