@@ -19,6 +19,11 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
     React.useEffect(() => {
       if (marker) {
         marker.setOptions(options);
+        const animation = google.maps.Animation.BOUNCE;
+        marker.setAnimation(animation);
+        setTimeout(() => {
+          marker.setAnimation(null);
+        }, 2000);
       }
     }, [marker, options]);
   
