@@ -16,6 +16,35 @@ query MyQuery($offset: Int!) {
 }
 `
 
+export const GET_ORDER_BY_ID = gql`
+query MyQuery($orderId: String!) {
+  getOrderById(orderId: $orderId) {
+    address
+    carrier
+    city
+    createdAt
+    customer {
+      firstName
+      id
+      lastName
+      email
+      phone
+    }
+    id
+    lat
+    lng
+    shippingCost
+    trackingId
+    trackingItems {
+      id
+      name
+      quantity
+      price
+    }
+  }
+}
+`;
+
 export const GET_CUSTOMER_ORDERS = gql`
 query MyQuery($customerId: String!) {
     allOrdersByCustomer(customerId: $customerId) {
@@ -60,6 +89,9 @@ query MyQuery($offset: Int!) {
         }
         trackingItems {
           id
+          name
+          quantity
+          price
         }
       }
     }

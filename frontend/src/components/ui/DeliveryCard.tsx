@@ -9,15 +9,16 @@ const render = (status: Status) => {
 
 type Props = {
     order: any;
+    fullWidth?: boolean | any;
 };
 
-const DeliveryCard = ({ order }: Props) => {
+const DeliveryCard = ({ order, fullWidth }: Props) => {
     const center = {lat: order.lat, lng: order.lng};
     const zoom = 4;
     const position = {lat: order.lat, lng: order.lng};
     return (
-        <div className="rounded-lg my-2 shadow" style={{backgroundColor:'#59C1CC'}}>
-            <div className="flex flex-col items-center">
+        <div className={fullWidth ? 'rounded-none-m-0': 'rounded-lg my-2 shadow'} style={{backgroundColor: fullWidth ? '#EB6A7C': '#59C1CC'}}>
+            <div className="flex flex-col items-center" style={fullWidth && { height: '100%'}}>
                 <Inbox size={50} color="white" />
                 <div className="text-xs text-center uppercase text-white font-bold">
                     <p>{order.carrier} - {order.trackingId}</p>
@@ -38,11 +39,15 @@ const DeliveryCard = ({ order }: Props) => {
                     </div>
                 ))}
                 </div>
-                <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API as string} render={render}>
-                    <Map zoom={zoom} center={center}>
-                        <Marker position={position} />
-                    </Map>
-                </Wrapper>
+                {
+                    order.lat && order.lng && (
+                        <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API as string} render={render}>
+                            <Map zoom={zoom} center={center}>
+                                <Marker position={position} />
+                            </Map>
+                        </Wrapper>
+                    )
+                }
             </div>
         </div>
     )

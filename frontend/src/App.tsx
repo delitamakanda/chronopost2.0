@@ -6,6 +6,8 @@ import OrdersScreen from 'screens/orders';
 import Header from 'components/ui/Header';
 import Modal from 'components/modal/Modal';
 import Customer from 'screens/modals/customer';
+import Order from 'screens/modals/order';
+import NestedView from 'components/views/NestedView';
 
 const App = () => {
   const location = useLocation();
@@ -16,8 +18,16 @@ const App = () => {
         </div>
         <main>
           <Routes>
-            <Route path="/" element={<Navigate to="/orders" replace={true} />} />
-            <Route path="/orders" element={<OrdersScreen />} />
+            <Route path="*" element={<Navigate to="/orders" />} />
+            <Route path="/orders" element={<OrdersScreen />} children={
+              <>
+                <Route path="/orders/:orderId" element={
+                  <NestedView>
+                    <Order />
+                  </NestedView>
+                } />
+              </>
+            } />
             <Route path="/customers" element={<CustomersScreen />} children={
               <>
                 <Route path="/customers/:id" element={<Modal>

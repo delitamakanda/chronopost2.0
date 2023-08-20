@@ -7,3 +7,4 @@ Chronopost tracking with Django, graphene and React, typescript and tailwindcss
    
 ![backend 1](docs/backend1.png)
 ![backend 2](docs/backend2.png)
+![frontend](docs/frontend.gif)
